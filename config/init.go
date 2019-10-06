@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 )
 
 type Config struct {
@@ -42,11 +41,4 @@ func Env(key string, def string) string {
 		return val
 	}
 	return def
-}
-
-func U2Replace(s string, v map[string]string) string {
-	for k, v := range v {
-		s = strings.ReplaceAll(s, "__"+k+"__", v)
-	}
-	return s
 }
