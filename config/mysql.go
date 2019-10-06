@@ -40,7 +40,7 @@ func (cfg *Config) InitMysql() error {
 	port := Env(DBPort, "3306")
 	dbName := Env(DBName, "product")
 
-	dataSource := user+":"+password+"@tcp("+host+":"+port+")/"+dbName
+	dataSource := user + ":" + password + "@tcp(" + host + ":" + port + ")/" + dbName + "?parseTime=true"
 
 	db, err := sql.Open(driver, dataSource)
 

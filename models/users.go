@@ -1,16 +1,27 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type (
-	FormUser struct {
+	FormUserResponse struct {
 		Id          int64     `json:"id" db:"id"`
-		FirstName   string    `db:"first_name"`
-		LastName    string    `db:"last_name"`
-		Email       string    `db:"email"`
-		PhoneNumber string    `db:"phone_number"`
-		BirthDate   time.Time `db:"birth_date"`
-		Gender      string    `db:"gender"`
+		FirstName   string    `json:"first_name" db:"first_name"`
+		LastName    string    `json:"last_name" db:"last_name"`
+		Email       string    `json:"email" db:"email"`
+		PhoneNumber string    `json:"phone_number" db:"phone_number"`
+		BirthDate   *time.Time `json:"birth_date" db:"birth_date"`
+		Gender      *string    `json:"gender" db:"gender"`
+	}
+
+	FormUserRequest struct {
+		FirstName   string `json:"first_name"`
+		LastName    string `json:"last_name"`
+		Email       string `json:"email"`
+		PhoneNumber string `json:"phone_number"`
+		BirthDate   string `json:"birth_date"`
+		Gender      string `json:"gender"`
 	}
 
 	FormPhone struct {

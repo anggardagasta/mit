@@ -13,7 +13,7 @@ func NewServiceUsersUsecase(serviceUserRepo service.IServiceUsersRepository) ser
 	return serviceUsersUsecase{serviceUsersRepo: serviceUserRepo}
 }
 
-func (uc serviceUsersUsecase) GetUserByPhoneNumber(input models.FormPhone) (result models.FormUser, err error) {
+func (uc serviceUsersUsecase) GetUserByPhoneNumber(input models.FormPhone) (result models.FormUserResponse, err error) {
 	result, err = uc.serviceUsersRepo.GetUserByPhoneNumber(input)
 	if err != nil {
 		return result, err
@@ -21,7 +21,7 @@ func (uc serviceUsersUsecase) GetUserByPhoneNumber(input models.FormPhone) (resu
 	return result, nil
 }
 
-func (uc serviceUsersUsecase) GetUserByEmail(input models.FormEmail) (result models.FormUser, err error) {
+func (uc serviceUsersUsecase) GetUserByEmail(input models.FormEmail) (result models.FormUserResponse, err error) {
 	result, err = uc.serviceUsersRepo.GetUserByEmail(input)
 	if err != nil {
 		return result, err
@@ -29,7 +29,7 @@ func (uc serviceUsersUsecase) GetUserByEmail(input models.FormEmail) (result mod
 	return result, nil
 }
 
-func (uc serviceUsersUsecase) RegisterUser(input models.FormUser) (err error) {
+func (uc serviceUsersUsecase) RegisterUser(input models.FormUserRequest) (err error) {
 	err = uc.serviceUsersRepo.InsertUser(input)
 	if err != nil {
 		return err

@@ -9,24 +9,27 @@ import (
 )
 
 func (hd handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
-	var request models.FormUser
+	var request models.FormUserRequest
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 
 	_, err = govalidator.ValidateStruct(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 
 	err = hd.usersUsecase.RegisterUser(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
-	response.ResultOk(w)
+	response.Result(w, response.MessageSucceed, http.StatusOK)
 }
 
 func (hd handler) CheckUserPhone(w http.ResponseWriter, r *http.Request) {
@@ -35,18 +38,26 @@ func (hd handler) CheckUserPhone(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 
 	_, err = govalidator.ValidateStruct(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 	result, err := hd.usersUsecase.GetUserByPhoneNumber(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
-	response.ResultOkWithData(w, result)
+
+	if result.Id <= 0 {
+		response.ResultWithData(w, nil, response.MessageUserNotFount, http.StatusNotFound)
+	} else {
+		response.ResultWithData(w, result, response.MessageSucceed, http.StatusOK)
+	}
 }
 
 func (hd handler) CheckUserEmail(w http.ResponseWriter, r *http.Request) {
@@ -55,17 +66,25 @@ func (hd handler) CheckUserEmail(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 
 	_, err = govalidator.ValidateStruct(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
 
 	result, err := hd.usersUsecase.GetUserByEmail(request)
 	if err != nil {
-
+		response.ResultError(w, http.StatusInternalServerError, response.MessageInternalError, err)
+		return
 	}
-	response.ResultOkWithData(w, result)
+
+	if result.Id <= 0 {
+		response.ResultWithData(w, nil, response.MessageUserNotFount, http.StatusNotFound)
+	} else {
+		response.ResultWithData(w, result, response.MessageSucceed, http.StatusOK)
+	}
 }
