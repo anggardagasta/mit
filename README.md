@@ -1,5 +1,5 @@
 ## How To Run
-- cd {YourGoPath}/github.com/anggardagasta
+- cd {YourGoPath}/src/github.com/anggardagasta
 - git clone https://github.com/anggardagasta/mit.git
 - cd mit
 - go run main.go
