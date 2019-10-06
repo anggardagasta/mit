@@ -4,6 +4,13 @@
 - cd mit
 - go run main.go
 
+In needs some package:
+- go get -u github.com/asaskevich/govalidator
+- go get -u github.com/go-chi/chi
+- go get -u github.com/go-chi/cors
+- go get -u github.com/go-sql-driver/mysql
+- go get -u github.com/joho/godotenv
+
 ## Endpoint
 Check User Phone
 - Endpoint: http://localhost:8082/v1/users/check/phone [POST]
